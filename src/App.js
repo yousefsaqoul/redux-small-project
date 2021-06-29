@@ -6,16 +6,7 @@ import {connect} from 'react-redux'
 
 class App extends Component  {
  
-  increase = ()=>{
-    this.setState(
-      {count: this.state.count +1}
-    )
-  }
-  decrease = ()=>{
-    this.setState(
-      {count: this.state.count -1}
-    )
-  }
+
 
   render(){
     console.log(this.props)
@@ -23,9 +14,9 @@ class App extends Component  {
       
       <div className="App">
        
-        <button onClick={this.increase}>+</button>
+        <button onClick={this.props.increase}>+</button>
         <div> {this.props.count} </div>
-        <button onClick={this.decrease}>-</button>
+        <button onClick={this.props.decrease}>-</button>
       </div>
     );
    
@@ -39,4 +30,11 @@ function mapStateToProps(state){
       }
 }
 
-export default connect(mapStateToProps)(App);
+
+function mapDispatchToProps(dispatch){
+  return{
+    increase: ()=> dispatch({type: 'INCREASE'}),
+    decrease: ()=> dispatch({type: 'DECREASE'}),
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);
